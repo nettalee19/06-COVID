@@ -1,13 +1,13 @@
-let proxy = `https://api.allorigins.win/raw?url=`;
-const countrys = `${proxy}https://restcountries.herokuapp.com/api/v1`;
-const covidCountries = `${proxy}https://corona-api.com/countries/` //covid update daily worldwide
+const proxy = `https://api.allorigins.win/raw?url=`;
+const countriesList = `${proxy}https://restcountries.herokuapp.com/api/v1`;
+const covidList = `${proxy}https://corona-api.com/countries/` //covid update daily worldwide
 
 let countryName = [];
 let continent = {};
 
 //displaying the countries
 async function displayCountry(){
-  const countryData = await fetch(countrys)
+  const countryData = await fetch(countriesList)
   const data = await countryData.json();
   //showJoke.innerHTML = data.value
   //console.log(data)
@@ -31,7 +31,7 @@ displayCountry()
 
 //dispslaying the covid data
 async function displayCovidbyCountry(cCode){
-    const covidData = await fetch (`${covidCountries}${cCode}`)
+    const covidData = await fetch (`${covidList}${cCode}`)
     const dataTwo = await covidData.json();
     console.log(dataTwo)
     let finalCovidData = await dataTwo.covidData;
@@ -47,6 +47,18 @@ async function displayCovidbyCountry(cCode){
     return covidByCountryObj;
 }
 //displayCovidbyCountry('FR')
+const getConButton =  async (e)=>{
+    const formCon = document.querySelector('.continents-btns').querySelector('.clicked');  
+    formCon.classList.remove('clicked');
+    e.target.classList.add('clicked');
+    let curCon = e.target.innerHTML.toLowerCase();
+    let curStauts = document.querySelector('.btnBoxStatus').querySelector('.clicked');
+    let curStat = curStauts.innerHTML.toLowerCase();
+    await getRegionStatus(curCon,curStat);
+    loader.style.visibility = 'hidden';
+    singleCountry.style.visibility = 'visible';
+    addEvents();
+  }
 
 //52
 //spliting the countryObj into two arrays

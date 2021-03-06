@@ -2,6 +2,8 @@ const baseEndpoint = 'https://restcountries.herokuapp.com/api/v1/region/';
 const countryProxy = 'https://api.allorigins.win/raw?url';
 
 
+
+
 const getCountryByRegion = async (continent) => {
     const data = await fetch(`${countryProxy}=${baseEndpoint}${continent}`);
     const jsonData = await data.json();
