@@ -37,24 +37,36 @@ async function displayCovidbyCountry(cCode){
     let finalCovidData = await dataTwo.covidData;
     //console.log(finalCovidData)
 
-    let covidByCountryObj = {
+    const covidByCountryObj = {
         code: finalCovidData.code,
         confirmed: finalCovidData.latest_data.confirmed,
         critical: finalCovidData.latest_data.critical,
         deaths: finalCovidData.latest_data.deaths,
         recovered: finalCovidData.latest_data.recovered
     }
-    return covidByCountryObj.confirmed;
+    return covidByCountryObj;
 }
-displayCovidbyCountry('IL')
+displayCovidbyCountry('FR')
 
-const myChart = async (arr , arrData) => {
-    var ctx =  document.querySelector('#myChart').getContext('2d');
-    var chart = await  new Chart(ctx, {
-        // The type of chart we want to create
+//52
+//spliting the countryObj into two arrays
+
+
+
+
+
+
+
+
+const covidChart = async (arr , arrData) => {
+    
+    
+    var ctx =  document.getElementById('myChart').getContext('2d');
+    var chart = await new Chart(ctx, {
+        //type of chart 
         type: 'line',
 
-        // The data for our dataset
+        //data for the dataset
         data: {
             labels:  arr,
             datasets: [{
@@ -65,7 +77,17 @@ const myChart = async (arr , arrData) => {
             }]
         },
 
-        // Configuration options go here
+        
         options: {}
+    });
+}
+
+
+
+const continentBtns = document.querySelectorAll('.continentBtn');
+for (let i = 0; i < continentBtns.length; i++) {
+    continentBtns[i].addEventListener('click', () => {
+        currentContinent = continentBtns[i].textContent
+        convetObjToArrays('confirmed');
     });
 }
